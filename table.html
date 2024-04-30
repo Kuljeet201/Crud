@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Table Task</title>
+        <style>
+                * {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+                div {
+                        margin-bottom: 10px;
+                }
+        </style>
+</head>
+
+<body>
+
+        <section class="table">
+                <input type="text" placeholder="Enter User IDs"><button id="btn">Sumbit</button>
+                <div>
+                        <h4 id="get_name">Name : </h4>
+                        <h4 id="get_depart">Department : </h4>
+                </div>
+                <div>
+                        <input type="text" placeholder="Enter User Name" id="set_name">
+                        <input type="text" placeholder="Enter User Department" id="set_depart">
+                        <button id="insert">Insert</button>
+                </div>
+                <table border="3" style="margin-top: 20px;">
+                        <thead>
+                                <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Depertment</th>
+                                        <th>Remove</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                </table>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script src="table.js"></script>
+</body>
+
+</html>

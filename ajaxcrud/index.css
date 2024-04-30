@@ -1,0 +1,170 @@
+* {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+::selection {
+        background-color: rgb(34, 25, 34);
+}
+
+@keyframes bg_anim {
+
+        0%,
+        100% {
+                background-position: 0%;
+        }
+
+        50% {
+                background-position: 50%;
+        }
+}
+
+html::-webkit-scrollbar {
+        width: 10px;
+}
+
+html::-webkit-scrollbar-thumb {
+        background-color: rgb(33, 31, 33);
+}
+
+html::-webkit-scrollbar-track {
+        background-color: rgb(44, 39, 45);
+}
+
+body {
+        /* overflow-x: hidden; */
+        background-color: rgb(15, 12, 17);
+}
+
+section {
+        background-color: rgb(15, 12, 17);
+        padding-top: 3rem;
+        text-align: center;
+
+        .header {
+                display: flex;
+                justify-content: space-evenly;
+
+                #btn_get {
+                        background-color: rgb(86, 85, 86);
+                }
+
+
+                .btn {
+                        font-family: "Space Grotesk", sans-serif;
+                        border-radius: 8px;
+                        padding: 6px 25px;
+                        color: white;
+                        font-size: 15px;
+                        cursor: pointer;
+                        width: 150px;
+                        margin-bottom: 3rem;
+                        border: none;
+                }
+
+                & h1 {
+                        color: rgb(135, 116, 134);
+                        text-align: center;
+                        margin-bottom: 3rem;
+                        font-size: 2.5rem;
+                        font-family: "Space Grotesk", sans-serif;
+                        font-optical-sizing: auto;
+                        font-weight: 400;
+                        font-style: normal;
+                }
+        }
+
+
+        .wrapper {
+                margin-inline: auto;
+                padding: 10px;
+                box-shadow: 1px 1px 10px rebeccapurple, 1px 1px 10px rgb(255, 255, 255), 1px 1px 10px rgb(51, 133, 153), 1px 1px 10px rgb(182, 19, 19);
+                width: max-content;
+
+                & table {
+                        border: 1px solid rgb(72, 30, 83);
+                        margin-inline: auto;
+
+                        & thead {
+                                border: 1px solid rgb(255, 255, 255);
+
+                                & tr {
+                                        background: linear-gradient(45deg, rgb(47, 33, 54) 20%, rgb(15, 4, 17));
+                                        background-size: 200%;
+                                        animation: bg_anim 5s infinite alternate;
+
+                                        & th {
+                                                padding: 10px;
+                                                color: rgb(159, 107, 179);
+                                                font-weight: 400;
+                                                font-family: "Victor Mono", monospace;
+                                                font-optical-sizing: auto;
+                                                font-style: normal;
+                                        }
+                                }
+                        }
+
+                        & tbody {
+
+                                & tr:nth-child(odd) {
+                                        background: linear-gradient(45deg, rgb(46, 17, 58) 20%, rgb(183, 101, 203));
+                                        background-size: 200%;
+                                        animation: bg_anim 5s infinite alternate;
+                                }
+
+                                & tr {
+
+                                        & td {
+                                                color: white;
+                                                padding: 5px;
+                                                text-align: center;
+                                                font-size: 18px;
+                                                font-family: "PT Sans Narrow", sans-serif;
+                                                font-weight: 400;
+                                                font-style: normal;
+                                        }
+                                }
+
+                                & tr:nth-child(even) {
+                                        background: linear-gradient(45deg, rgb(22, 17, 20)0%, rgb(46, 17, 58));
+                                        background-size: 200%;
+                                        animation: bg_anim 5s infinite alternate;
+                                }
+                        }
+                }
+        }
+}
+
+button {
+        padding: 4px 10px;
+        background-color: rgb(65, 58, 58);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+}
+
+.edit_btn {
+        border: 1px solid rgb(74, 225, 74);
+        margin-right: 5px;
+}
+
+.save_btn {
+        border: 1px solid orange;
+}
+
+.del_btn {
+        border: 1px solid rgb(255, 11, 11);
+}
+
+.edit_input {
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        background-color: rgb(138, 120, 138);
+        padding: 4px;
+        color: white;
+        caret-color: rgb(147, 43, 166);
+}
