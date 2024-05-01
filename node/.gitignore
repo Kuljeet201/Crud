@@ -2,5 +2,3 @@
 /node_modules
 
 # Ignore files outside the current directory
-../table.html
-../table.js
