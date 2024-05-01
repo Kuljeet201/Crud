@@ -1,3 +1,6 @@
-node/node_modules/
+# Ignore node_modules folder
+/node_modules
+
+# Ignore files outside the current directory
 ../table.html
 ../table.js
