@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Import the cors package
+const cors = require('cors');
 const app = express();
 const fs = require('fs');
 const path = require('path');
@@ -8,41 +8,31 @@ const { log } = require('console');
 
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse JSON-encoded bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 app.use(cors());
-// (function getall() {
+
+// api for dynamic ids
 
 app.get('/form_data', (req, res) => {
-        console.log("dcsbdjsbj");
-        var l = JSON.parse(fs.readFileSync('../ajaxcrud/index.json', 'utf8'));
-
-        let maxId = Math.max(...l.map(obj => obj?.id || 0)); // Find the max value of id
-        let filteredArray = l.filter(obj => obj.id == maxId);
-        let finalId = filteredArray[0]["id"]
-        console.log(filteredArray[0]["id"]);
-        return res.status(200).json({
-                finalId: finalId
-        })
-
-
-})
-
-
-// })
-
-// })();
+        const data = JSON.parse(fs.readFileSync('../Frontend/index.json', 'utf8'));
+        const latestId = Math.max(...data.map(obj => obj.id), 0); // Find the max value of id
+        res.status(200).json({ latestId });
+        console.log(latestId);
+});
 
 
 // Route to handle form submissions
+
 app.post('/form_data', (req, res) => {
+
         const formData = req.body;
         let arr = [];
+
         try {
-                const filePath = path.join(__dirname, '../ajaxcrud/index.json');
+                const filePath = path.join(__dirname, '../Frontend/index.json');
                 console.log(filePath);
                 if (fs.existsSync(filePath)) {
                         arr = JSON.parse(fs.readFileSync(filePath));
@@ -63,6 +53,7 @@ app.post('/form_data', (req, res) => {
                 console.error('Error:', err);
                 res.status(500).send('Internal Server Error');
         }
+
 });
 
 // delete request 
@@ -71,7 +62,7 @@ app.delete('/form_data/:id', (req, res) => {
         const idToDelete = req.params.id;
         console.log(idToDelete);
         // Read the JSON file
-        fs.readFile('../ajaxcrud/index.json', 'utf8', (err, data) => {
+        fs.readFile('../Frontend/index.json', 'utf8', (err, data) => {
                 if (err) {
                         return res.status(500).send('Internal Server Error');
                 }
@@ -87,7 +78,7 @@ app.delete('/form_data/:id', (req, res) => {
                         jsonData.splice(index, 1);
 
                         // Write the updated data back to the file
-                        fs.writeFile('../ajaxcrud/index.json', JSON.stringify(jsonData, null, 2), (err) => {
+                        fs.writeFile('../Frontend/index.json', JSON.stringify(jsonData, null, 2), (err) => {
                                 if (err) {
                                         return res.status(500).send('Internal Server Error');
                                 }

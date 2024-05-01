@@ -71,7 +71,7 @@
 
         <div class="form-container">
                 <h2>Contact Us</h2>
-                <form method="post" id="form" onsubmit="event">
+                <form method="post" id="form">
                         <div class="form-group">
                                 <label for="name">Name:</label>
                                 <input type="text" id="name" name="Name" required>
@@ -114,57 +114,38 @@
                 </form>
         </div>
         <!-- {Crown7} -->
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
 
-
-                // let id = 1; // Initialize the ID outside of the document ready function
                 $(document).ready(function () {
-                        let id;
 
-                        // (function getdata() {
+                        let id = 0;
 
+                        $.get('http://localhost:3000/form_data', function (res) {
+                                id = res.latestId || 0; // If there's no ID yet, start from 0
+                                console.log("Fetched latest ID:", id);
+                        });
 
-                        $.get('http://localhost:3000/form_data', async function (res) {
-                                console.log(res, "resssssss");
-                                // const val = JSON.parse(res)
-                                // id = val?.finalId
-                                id = await res.finalId;
-                                console.log(id, "idddd");
-
-                        })
-                        // })()
-
-                        console.log(id, "val");
-                        $('#form').on('submit', function (e) {
-
-                                // console.log(e.defaultPrevented(), "fjvjjngjbjg")
-                                e.preventDefault()
-
-
+                        $('#form').on('submit', function (event) {
+                                event.preventDefault()
                                 const obj = {};
+
+
                                 $('#form input').each(function () {
                                         obj[$(this).attr('name')] = $(this).val();
                                 });
-                                id++; // Increment the id for the next form submission
 
-                                obj['id'] = id; // Assign the current value of id
+                                id++;
+                                obj['id'] = id;
 
-                                // console.log(e.defaultPrevented(), "attriiiiiiiiiii")
-                                // Send a POST request with the form data
-                                // $.post('http://localhost:3000/form_data', obj, function (data) {
-                                //         location.reload(false)
-
-                                //         console.log('POST request successful:', data);
-
-                                // }).fail(function (xhr, status, error) {
-                                //         console.error('POST request failed:', error);
-                                // });
-
+                                $.post('http://localhost:3000/form_data', obj, function (data) {
+                                        console.log('POST request successful:', data);
+                                }).fail(function (xhr, status, error) {
+                                        console.error('POST request failed:', error);
+                                });
 
                         });
-
-
                 });
 
         </script>
