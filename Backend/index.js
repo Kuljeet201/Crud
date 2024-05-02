@@ -7,40 +7,35 @@ const path = require('path');
 const { log } = require('console');
 
 const PORT = process.env.PORT || 3000;
-
-app.use(bodyParser.json());
+console.log(process.env.PORT);
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(express.static('public'));
 app.use(cors());
 
 // api for dynamic ids
 
-app.get('/form_data', (req, res) => {
+app.get('/gererate_dynamic_id', (req, res) => {
         const data = JSON.parse(fs.readFileSync('../Frontend/index.json', 'utf8'));
-        const latestId = Math.max(...data.map(obj => obj.id), 0); // Find the max value of id
+        const latestId = Math.max(...data.map(obj => obj.id), 0);
         res.status(200).json({ latestId });
-        console.log(latestId);
 });
 
 
 // Route to handle form submissions
 
-app.post('/form_data', (req, res) => {
+app.post('/create_form_data', (req, res) => {
 
         const formData = req.body;
         let arr = [];
-
         try {
                 const filePath = path.join(__dirname, '../Frontend/index.json');
-                console.log(filePath);
                 if (fs.existsSync(filePath)) {
                         arr = JSON.parse(fs.readFileSync(filePath));
                 }
-                // Push new form data into the array
                 arr.push(formData);
 
-                // Write updated data to index.json
                 fs.writeFile(filePath, JSON.stringify(arr, null, 2), (err) => {
                         if (err) {
                                 console.error('Error writing file:', err);
@@ -56,28 +51,61 @@ app.post('/form_data', (req, res) => {
 
 });
 
+// update data
+
+app.put('/update_form_data/:id', (req, res) => {
+        const idToUpdate = req.params.id;
+        const updatedData = req.body;
+
+        fs.readFile('../Frontend/index.json', 'utf8', (err, data) => {
+                if (err) {
+                        console.error('Error reading file:', err);
+                        return res.status(500).json({ error: 'Internal server error' });
+                }
+
+                let formData = JSON.parse(data);
+
+                const index = formData.findIndex(item => item.id == idToUpdate);
+                if (index === -1) {
+                        return res.status(404).json({ error: 'Data not found' });
+                }
+
+                const updatedEntry = { ...formData[index], ...updatedData }; // Merge existing data with updated fields
+
+                if (updatedEntry.Department === undefined || updatedEntry.Work === undefined || updatedEntry.Experience === undefined) {
+                        return res.status(400).json({ error: 'Invalid data format' });
+                }
+
+                formData[index] = updatedEntry;
+
+                fs.writeFile('../Frontend/index.json', JSON.stringify(formData, null, 2), 'utf8', (err) => {
+                        if (err) {
+                                console.error('Error writing file:', err);
+                                return res.status(500).json({ error: 'Internal server error' });
+                        }
+                        res.status(200).json({ message: 'Data updated successfully' });
+                });
+        });
+});
+
 // delete request 
 
-app.delete('/form_data/:id', (req, res) => {
+app.delete('/delete_form_data/:id', (req, res) => {
+
         const idToDelete = req.params.id;
-        console.log(idToDelete);
-        // Read the JSON file
+
         fs.readFile('../Frontend/index.json', 'utf8', (err, data) => {
                 if (err) {
                         return res.status(500).send('Internal Server Error');
                 }
 
-                // Parse the JSON data
                 let jsonData = JSON.parse(data);
 
-                // Find the index of the object with matching ID
                 const index = jsonData.findIndex(item => item.id === idToDelete);
 
-                // If the ID is found, remove the object from the array
                 if (index !== -1) {
                         jsonData.splice(index, 1);
 
-                        // Write the updated data back to the file
                         fs.writeFile('../Frontend/index.json', JSON.stringify(jsonData, null, 2), (err) => {
                                 if (err) {
                                         return res.status(500).send('Internal Server Error');

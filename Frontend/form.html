@@ -98,7 +98,7 @@
                         </div>
                         <div class="form-group">
                                 <label for="exper">Experince:</label>
-                                <input type="text" id="exper" name="Experince" required>
+                                <input type="text" id="exper" name="Experience" required>
                         </div>
                         <div class="form-group">
                                 <label for="edu">Education:</label>
@@ -122,15 +122,16 @@
 
                         let id = 0;
 
-                        $.get('http://localhost:3000/form_data', function (res) {
-                                id = res.latestId || 0; // If there's no ID yet, start from 0
+                        $.get('http://localhost:3000/gererate_dynamic_id', function (res) {
+                                id = res.latestId || 0;
                                 console.log("Fetched latest ID:", id);
                         });
+
+                        // create data with post request
 
                         $('#form').on('submit', function (event) {
                                 event.preventDefault()
                                 const obj = {};
-
 
                                 $('#form input').each(function () {
                                         obj[$(this).attr('name')] = $(this).val();
@@ -139,7 +140,7 @@
                                 id++;
                                 obj['id'] = id;
 
-                                $.post('http://localhost:3000/form_data', obj, function (data) {
+                                $.post('http://localhost:3000/create_form_data', obj, function (data) {
                                         console.log('POST request successful:', data);
                                 }).fail(function (xhr, status, error) {
                                         console.error('POST request failed:', error);

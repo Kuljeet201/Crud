@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "Name": "kuljeet singh",
+    "Phone": "111",
+    "Email": "jroot@gmail.com",
+    "Department": "Frontend",
+    "Age": "20",
+    "Work": "React",
+    "Experience": "1",
+    "Education": "BA",
+    "Address": "batala",
+    "id": "1"
+  },
+  {
+    "Name": "shivam",
+    "Phone": "49465",
+    "Email": "shivam@gmail.com",
+    "Department": "Backend",
+    "Age": "21",
+    "Work": "java",
+    "Experience": "5",
+    "Education": "MSC",
+    "Address": "UK",
+    "id": "2"
+  },
+  {
+    "Name": "Peter",
+    "Phone": "45454",
+    "Email": "perter@gmail.com",
+    "Department": "photographer",
+    "Age": "27",
+    "Work": "popopo",
+    "Experience": "1",
+    "Education": "ma",
+    "Address": "gurdaspur",
+    "id": "3"
+  },
+  {
+    "Name": "Anderson",
+    "Phone": "45454789",
+    "Email": "anderson@gmail.com",
+    "Department": "Poeter",
+    "Age": "27",
+    "Work": "Writter",
+    "Experience": "6",
+    "Education": "ma",
+    "Address": "gurdaspur",
+    "id": "4"
+  },
+  {
+    "Name": "thomas",
+    "Phone": "221",
+    "Email": "thomas@gmail.com",
+    "Department": "singing",
+    "Age": "25",
+    "Work": "perach",
+    "Experience": "5",
+    "Education": "ba",
+    "Address": "poop",
+    "id": "5"
+  }
+]
